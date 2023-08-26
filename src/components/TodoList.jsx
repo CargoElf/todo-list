@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import TodoItem from "./TodoItem";
 
 function TodoList() {
   const [ todoItems, setTodoItems ] = useState([]);
@@ -33,7 +34,7 @@ function TodoList() {
 
     setTodoItems([ ...todoItems, todoObject ]);
     setIndexToAssign(currentIndex + 1);
-    clearInput()
+    clearInput();
   };
 
   const clearInput = () => {
