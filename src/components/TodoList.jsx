@@ -11,13 +11,10 @@ function TodoList() {
     return (
       <form onSubmit={addTodoItem}>
         <input
-          id="addTodoField"
           type="text"
           ref={todoText}
         />
-        <button
-          type="submit"
-        >
+        <button type="submit">
           Add Todo
         </button>
       </form>
@@ -30,12 +27,31 @@ function TodoList() {
     if (!text) return;
 
     const currentIndex = indexToAssign;
-    const newTodoItem = <TodoItem key={currentIndex} text={text} />;
 
-    setTodoItems([ ...todoItems, newTodoItem ]);
+    setTodoItems([
+      ...todoItems,
+      <TodoItem
+        id={currentIndex}
+        key={currentIndex}
+        text={text}
+        remove={deleteTodoItem}
+      />
+    ]);
 
     setIndexToAssign(currentIndex + 1);
     clearInput();
+  };
+
+  const deleteTodoItem = (key) => {
+    console.log(key)
+    console.log({ todoItems })
+    console.log(todoItems.map(todo => todo.key))
+    const filteredTodoItems = todoItems.filter(todo => {
+      return todo.key !== key.toString;
+    });
+    console.log({filteredTodoItems})
+
+    // setTodoItems(filteredTodoItems);
   };
 
   const clearInput = () => {

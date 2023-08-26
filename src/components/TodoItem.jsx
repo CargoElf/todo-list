@@ -1,13 +1,23 @@
 import { useState } from "react";
 
 function TodoItem(props) {
-  const { key, text } = props;
+  const { id, text, remove } = props;
 
   const [ todoText, setTodoText ] = useState(text);
+  const [ isComplete, setIsComplete ] = useState(false);
+
+  const changeCompletionStatus = () => {
+    const currentCompletionStatus = isComplete;
+    setIsComplete(!currentCompletionStatus);
+  }
 
   return (
-    <div key={key}>
+    <div>
       <p>{todoText}</p>
+      <button onClick={() => changeCompletionStatus()}>
+        Mark {isComplete && "in"}complete
+      </button>
+      <button onClick={() => remove(id)}>Delete</button>
     </div>
   );
 };
