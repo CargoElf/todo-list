@@ -30,9 +30,10 @@ function TodoList() {
     if (!text) return;
 
     const currentIndex = indexToAssign;
-    const todoObject = { key: currentIndex, text: text };
+    const newTodoItem = <TodoItem key={currentIndex} text={text} />;
 
-    setTodoItems([ ...todoItems, todoObject ]);
+    setTodoItems([ ...todoItems, newTodoItem ]);
+
     setIndexToAssign(currentIndex + 1);
     clearInput();
   };
@@ -41,24 +42,9 @@ function TodoList() {
     todoText.current.value = '';
   };
 
-  const todoItemDisplay = () => {
-    return (
-      <>
-        {todoItems.map(({ key, text }) => {
-          return (
-            <div key={key}>
-              <p>{text}</p>
-            </div>
-          )
-        })}
-      </>
-    );
-  };
-
-
   return (
     <>
-      {!!todoItems.length && todoItemDisplay()}
+      {!!todoItems.length && todoItems}
       <div>
         {todoEntryField()}
       </div>

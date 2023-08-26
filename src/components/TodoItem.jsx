@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function TodoItem(props) {
   const { key, text } = props;
+
   const [ todoText, setTodoText ] = useState(text);
 
   return (
