@@ -5,15 +5,12 @@ function TodoList() {
   const [ todoItems, setTodoItems ] = useState([]);
   const [ indexToAssign, setIndexToAssign ] = useState(0);
 
-  const todoText = useRef()
+  const todoText = useRef();
 
   const todoEntryField = () => {
     return (
       <form onSubmit={addTodoItem}>
-        <input
-          type="text"
-          ref={todoText}
-        />
+        <input type="text" ref={todoText} />
         <button type="submit">
           Add Todo
         </button>
@@ -28,30 +25,35 @@ function TodoList() {
 
     const currentIndex = indexToAssign;
 
-    setTodoItems([
-      ...todoItems,
-      <TodoItem
-        id={currentIndex}
-        key={currentIndex}
-        text={text}
-        remove={deleteTodoItem}
-      />
-    ]);
+    setTodoItems([ ...todoItems, { id: currentIndex, text: text } ]);
 
     setIndexToAssign(currentIndex + 1);
     clearInput();
   };
 
-  const deleteTodoItem = (key) => {
-    console.log(key)
-    console.log({ todoItems })
-    console.log(todoItems.map(todo => todo.key))
+  const deleteTodoItem = (id) => {
     const filteredTodoItems = todoItems.filter(todo => {
-      return todo.key !== key.toString;
+      return todo.id !== id;
     });
-    console.log({filteredTodoItems})
 
-    // setTodoItems(filteredTodoItems);
+    setTodoItems(filteredTodoItems);
+  };
+
+  const displayTodoItems = () => {
+    return (
+      <>
+        {todoItems.map(({ id, text }) => {
+          return (
+            <TodoItem
+              id={id}
+              key={id}
+              text={text}
+              remove={deleteTodoItem}
+            />
+          );
+        })}
+      </>
+    );
   };
 
   const clearInput = () => {
@@ -60,7 +62,7 @@ function TodoList() {
 
   return (
     <>
-      {!!todoItems.length && todoItems}
+      {!!todoItems.length && displayTodoItems()}
       <div>
         {todoEntryField()}
       </div>
