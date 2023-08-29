@@ -25,7 +25,7 @@ function TodoList() {
 
     const currentIndex = indexToAssign;
 
-    setTodoItems([ ...todoItems, { id: currentIndex, text: text } ]);
+    setTodoItems([...todoItems, { id: currentIndex, text: text }]);
 
     setIndexToAssign(currentIndex + 1);
     clearInput();
@@ -39,6 +39,14 @@ function TodoList() {
     setTodoItems(filteredTodoItems);
   };
 
+  const editTodoItem = (id, text) => {
+    const todoIndex = todoItems.findIndex(todoItem => todoItem.id === id);
+    const todoItemsToUpdate = todoItems;
+    todoItemsToUpdate[todoIndex].text = text;
+
+    setTodoItems(todoItemsToUpdate);
+  };
+
   const displayTodoItems = () => {
     return (
       <>
@@ -49,6 +57,7 @@ function TodoList() {
               key={id}
               text={text}
               remove={deleteTodoItem}
+              editTodo={editTodoItem}
             />
           );
         })}
