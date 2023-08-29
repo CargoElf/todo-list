@@ -40,6 +40,14 @@ function TodoItem(props) {
     );
   };
 
+  const deleteButton = () => {
+    if (isComplete) return;
+
+    return (
+      <button onClick={() => remove(id)}>Delete</button>
+    )
+  };
+
   const buttons = () => {
     return (
       <>
@@ -47,7 +55,7 @@ function TodoItem(props) {
           Mark {isComplete && "in"}complete
         </button>
         {editButton()}
-        <button onClick={() => remove(id)}>Delete</button>
+        {deleteButton()}
       </>
     );
   };
